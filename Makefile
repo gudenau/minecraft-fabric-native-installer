@@ -30,6 +30,7 @@ OBJCP		:=	objcopy
 MKDIR		:=	mkdir
 ZIP			:=	zip
 7ZIP		:=	7z
+CP			:=	cp
 
 # Enable all warnings, extra warnings, warnings as errors, optimize for space, debug info, static executable, no standard libs
 # Disable red zone (funny stack stuff), not sure, not sure, and compile without linking
@@ -58,7 +59,12 @@ RELEASE_BASE:=	$(TARGET)-$(VERSION)-$(FVERSION)
 all: $(DIR_OUT)/$(TARGET).com
 
 # Create all of the release archives
-release: $(DIR_RELEASE)/$(RELEASE_BASE).zip $(DIR_RELEASE)/$(RELEASE_BASE).7z
+release: $(DIR_RELEASE)/$(RELEASE_BASE).zip $(DIR_RELEASE)/$(RELEASE_BASE).7z $(DIR_RELEASE)/$(RELEASE_BASE).com
+
+# Just copy the executable too
+$(DIR_RELEASE)/$(RELEASE_BASE).com: $(DIR_OUT)/$(TARGET).com
+	@$(MKDIR) $(FLAGS_MKDIR) $(@D)
+	$(CP) $^ $@
 
 # Create a zip release
 $(DIR_RELEASE)/$(RELEASE_BASE).zip: $(DIR_OUT)/$(TARGET).com
