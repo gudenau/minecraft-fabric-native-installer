@@ -1,0 +1,7 @@
+# Build process stuff
+build/**
+out/**
+release/**
+
+# Not mine to distrubute, so let's be nice
+fabric-installer-*.jar
